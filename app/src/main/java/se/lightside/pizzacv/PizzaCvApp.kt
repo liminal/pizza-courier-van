@@ -1,9 +1,11 @@
 package se.lightside.pizzacv
 
-import android.app.Application
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
+import se.lightside.pizzacv.di.DaggerPizzaCourierVanAppComponent
 import timber.log.Timber
 
-class PizzaCvApp : Application() {
+class PizzaCvApp : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -13,5 +15,8 @@ class PizzaCvApp : Application() {
         }
 
     }
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+            DaggerPizzaCourierVanAppComponent.builder().create(this)
 
 }
