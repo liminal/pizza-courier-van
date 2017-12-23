@@ -13,7 +13,7 @@ Client functionality to implement on top of this API:
 
 # Restaurants [/restaurants/]
 
-A list of restaurants with adress and position.
+A list of restaurants with address and position.
 
 ## List restaurants [GET]
 
@@ -155,7 +155,7 @@ Endpoint for placing an order.
                     "quantity": 2
                 }
             ],
-            "restuarantId": 1
+            "restaurantId": 1
         }
 
 + Response 200 (application/json)
@@ -164,7 +164,7 @@ Endpoint for placing an order.
             "orderId": 1234412,
             "totalPrice": 168,
             "orderedAt": "2015-04-09T17:30:47.556Z", 
-            "esitmatedDelivery": "2015-04-09T17:45:47.556Z",
+            "estimatedDelivery": "2015-04-09T17:45:47.556Z",
             "status": "ordered"
         }
 
@@ -183,7 +183,7 @@ Endpoint for getting order details.
             "orderId": 1234412,
             "totalPrice": 168,
             "orderedAt": "2015-04-09T17:30:47.556Z", 
-            "esitmatedDelivery": "2015-04-09T17:50:47.556Z",
+            "estimatedDelivery": "2015-04-09T17:50:47.556Z",
             "status": "baking",
             "cart": [
                 {
@@ -199,5 +199,5 @@ Endpoint for getting order details.
                     "quantity": 2
                 }
             ],
-            "restuarantId": 1
+            "restaurantId": 1
         }
