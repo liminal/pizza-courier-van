@@ -1,8 +1,20 @@
+ext.kotlin_version = '1.2.10'
+
 ext.addDaggerDependencies = { DependencyHandler deps, String daggerVersion ->
-    deps.add('compile', "com.google.dagger:dagger:$daggerVersion")
-    deps.add('compile', "com.google.dagger:dagger-android:$daggerVersion")
-    deps.add('compile', "com.google.dagger:dagger-android-support:$daggerVersion")
+    deps.add('implementation', "com.google.dagger:dagger:$daggerVersion")
+    deps.add('implementation', "com.google.dagger:dagger-android:$daggerVersion")
+    deps.add('implementation', "com.google.dagger:dagger-android-support:$daggerVersion")
+    deps.add('api', 'javax.inject:javax.inject:1')
     deps.add('api', 'javax.annotation:javax.annotation-api:1.3.1')
     deps.add('kapt', "com.google.dagger:dagger-compiler:$daggerVersion")
     deps.add('kapt', "com.google.dagger:dagger-android-processor:$daggerVersion")
 }
+
+ext.addArchitectureLifecycleDependencies = { DependencyHandler deps, String arch_comp ->
+    deps.add('implementation', "android.arch.lifecycle:extensions:$arch_comp")
+    deps.add('implementation', "android.arch.lifecycle:reactivestreams:$arch_comp")
+    deps.add('kapt', "android.arch.lifecycle:compiler:$arch_comp")
+}
+
+ext.kotlinStdlib = { "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"}
+ext.kotlinReflect = { "org.jetbrains.kotlin:kotlin-reflect:${kotlin_version}"}

@@ -1,6 +1,9 @@
 package se.lightside.pizzacv.di
 
 import android.app.Application
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import dagger.Binds
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -8,10 +11,15 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import dagger.multibindings.IntoMap
 import okhttp3.logging.HttpLoggingInterceptor
 import se.lightside.pizzacv.BuildConfig
-import se.lightside.pizzacv.MainActivity
 import se.lightside.pizzacv.PizzaCvApp
+import se.lightside.pizzacv.ui.MainActivity
+import se.lightside.pizzacv.ui.restaurants.ListMenuActivity
+import se.lightside.pizzacv.ui.restaurants.ListMenuViewModel
+import se.lightside.pizzacv.ui.restaurants.ListRestaurantsActivity
+import se.lightside.pizzacv.ui.restaurants.ListRestaurantsViewModel
 import timber.log.Timber
 import javax.inject.Singleton
 
@@ -30,6 +38,7 @@ interface PizzaCourierVanAppComponent : AndroidInjector<PizzaCvApp> {
 @Module(includes = [
     AndroidInjectionModule::class,
     AndroidSupportInjectionModule::class,
+    ViewModelModule::class,
     NetModule::class,
     PizzaCvActivitiesModule::class
 ])
@@ -64,5 +73,29 @@ abstract class PizzaCvActivitiesModule {
 
     @ContributesAndroidInjector
     abstract fun provideMainActivityInjector(): MainActivity
+
+    @ContributesAndroidInjector
+    abstract fun provideListRestaurantsActivityInjector(): ListRestaurantsActivity
+
+    @ContributesAndroidInjector
+    abstract fun provideListMenuActivityInjector(): ListMenuActivity
+
+}
+
+@Module
+abstract class ViewModelModule {
+
+    @Binds
+    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ListRestaurantsViewModel::class)
+    abstract fun bindListRestaurantsViewModel(model: ListRestaurantsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ListMenuViewModel::class)
+    abstract fun bindListMenuViewModel(model: ListMenuViewModel): ViewModel
 
 }

@@ -5,16 +5,24 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import se.lightside.pizza.api.PizzaApi
 import java.io.File
 import javax.inject.Singleton
 
 data class CacheDir(val cacheDir: File)
 
-@Module(includes = [OkHttpModule::class, MoshiModule::class])
+@Module(includes = [
+    OkHttpModule::class,
+    MoshiModule::class,
+    PizzaApiModule::class
+])
 object NetModule {
 
     private val DEFAULT_DISK_CACHE_SIZE = 64 * 1024 * 1024
@@ -28,6 +36,32 @@ object NetModule {
     @JvmStatic
     fun provideConverterFactory(moshiFactory: MoshiConverterFactory): Converter.Factory = moshiFactory
 
+}
+
+@Module
+object PizzaApiModule {
+
+    @Provides
+    @JvmStatic
+    fun provideBaseUrl(): HttpUrl = HttpUrl.parse("https://private-anon-a3a7dacf75-pizzaapp.apiary-mock.com")!!
+
+    @Provides
+    @JvmStatic
+    fun provideRetrofit(
+            baseUrl: HttpUrl,
+            okHttpClient: OkHttpClient,
+            converterFactory: Converter.Factory
+    ): Retrofit =
+            Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .client(okHttpClient)
+                    .addConverterFactory(converterFactory)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build()
+
+    @Provides
+    @JvmStatic
+    fun provideApi(r: Retrofit): PizzaApi = r.create(PizzaApi::class.java)
 }
 
 @Module

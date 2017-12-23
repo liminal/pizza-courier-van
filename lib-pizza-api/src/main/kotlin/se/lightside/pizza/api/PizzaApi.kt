@@ -169,14 +169,14 @@ interface PizzaApi {
      *         ]
      * </pre>
      */
-    @GET("/restaurants/{restaurantId}/menu{?category,orderBy}")
+    @GET("/restaurants/{restaurantId}/menu")
     fun getRestaurantMenu(
             @Path("restaurantId") restaurantId: Long,
             @Query("category") category: String? = null,
             @Query("orderBy") orderBy: String? = null
-    ) : Single<List<PizzaMenuItems>>
+    ) : Single<List<PizzaMenuItem>>
 
-    data class PizzaMenuItems(
+    data class PizzaMenuItem(
             val id: Long,
             val category: String?,
             val name: String?,
