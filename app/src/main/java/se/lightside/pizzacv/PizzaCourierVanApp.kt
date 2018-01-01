@@ -5,7 +5,7 @@ import dagger.android.support.DaggerApplication
 import se.lightside.pizzacv.di.DaggerPizzaCourierVanAppComponent
 import timber.log.Timber
 
-class PizzaCvApp : DaggerApplication() {
+class PizzaCourierVanApp : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()

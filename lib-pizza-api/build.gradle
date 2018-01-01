@@ -19,5 +19,8 @@ dependencies {
     def moshi = '1.5.0'
     compile "com.squareup.moshi:moshi-kotlin:${moshi}"
 
+    implementation kotlinStdlib()
+    implementation kotlinReflect()
+
 }
 

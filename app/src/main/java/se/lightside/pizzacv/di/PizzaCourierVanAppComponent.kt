@@ -13,22 +13,24 @@ import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import dagger.multibindings.IntoMap
 import okhttp3.logging.HttpLoggingInterceptor
+import pizzacv.common.ui.viewmodel.ViewModelFactory
+import pizzacv.common.ui.viewmodel.ViewModelKey
 import se.lightside.pizzacv.BuildConfig
-import se.lightside.pizzacv.PizzaCvApp
+import se.lightside.pizzacv.PizzaCourierVanApp
 import se.lightside.pizzacv.ui.MainActivity
-import se.lightside.pizzacv.ui.restaurants.ListMenuActivity
-import se.lightside.pizzacv.ui.restaurants.ListMenuViewModel
-import se.lightside.pizzacv.ui.restaurants.ListRestaurantsActivity
-import se.lightside.pizzacv.ui.restaurants.ListRestaurantsViewModel
+import se.lightside.pizzacv.ui.restaurants.MenuListActivity
+import se.lightside.pizzacv.ui.restaurants.MenuListViewModel
+import se.lightside.pizzacv.ui.restaurants.RestaurantsListActivity
+import se.lightside.pizzacv.ui.restaurants.RestaurantsListViewModel
 import timber.log.Timber
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [PizzaCourierVanAppModule::class])
-interface PizzaCourierVanAppComponent : AndroidInjector<PizzaCvApp> {
+interface PizzaCourierVanAppComponent : AndroidInjector<PizzaCourierVanApp> {
 
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<PizzaCvApp>() {
+    abstract class Builder : AndroidInjector.Builder<PizzaCourierVanApp>() {
         abstract override fun build(): PizzaCourierVanAppComponent
     }
 
@@ -47,7 +49,7 @@ object PizzaCourierVanAppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideApplication(app: PizzaCvApp): Application = app
+    fun provideApplication(app: PizzaCourierVanApp): Application = app
 
     @Singleton
     @Provides
@@ -75,10 +77,10 @@ abstract class PizzaCvActivitiesModule {
     abstract fun provideMainActivityInjector(): MainActivity
 
     @ContributesAndroidInjector
-    abstract fun provideListRestaurantsActivityInjector(): ListRestaurantsActivity
+    abstract fun provideListRestaurantsActivityInjector(): RestaurantsListActivity
 
     @ContributesAndroidInjector
-    abstract fun provideListMenuActivityInjector(): ListMenuActivity
+    abstract fun provideListMenuActivityInjector(): MenuListActivity
 
 }
 
@@ -90,12 +92,12 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ListRestaurantsViewModel::class)
-    abstract fun bindListRestaurantsViewModel(model: ListRestaurantsViewModel): ViewModel
+    @ViewModelKey(RestaurantsListViewModel::class)
+    abstract fun bindListRestaurantsViewModel(model: RestaurantsListViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(ListMenuViewModel::class)
-    abstract fun bindListMenuViewModel(model: ListMenuViewModel): ViewModel
+    @ViewModelKey(MenuListViewModel::class)
+    abstract fun bindListMenuViewModel(model: MenuListViewModel): ViewModel
 
 }

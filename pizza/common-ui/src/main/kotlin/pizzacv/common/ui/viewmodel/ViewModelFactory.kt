@@ -1,4 +1,4 @@
-package se.lightside.pizzacv.di
+package pizzacv.common.ui.viewmodel
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

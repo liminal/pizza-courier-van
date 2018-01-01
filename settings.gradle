@@ -1,2 +1,4 @@
 include ':app'
 include ':lib-pizza-api'
+
+include ':pizza:common-ui'

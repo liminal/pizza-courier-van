@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context="se.lightside.pizzacv.ui.restaurants.ListRestaurantsActivity">
+    tools:context="se.lightside.pizzacv.ui.restaurants.RestaurantsListActivity">
 <android.support.v7.widget.RecyclerView
     android:id="@+id/recyclerView"
     app:layoutManager="LinearLayoutManager"

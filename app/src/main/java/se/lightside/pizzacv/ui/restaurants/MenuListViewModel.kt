@@ -7,8 +7,8 @@ import io.reactivex.schedulers.Schedulers
 import se.lightside.pizza.api.PizzaApi
 import javax.inject.Inject
 
-class ListMenuViewModel @Inject constructor(
-        val pizzaApi: PizzaApi
+class MenuListViewModel @Inject constructor(
+        private val pizzaApi: PizzaApi
 ): ViewModel() {
 
     val menuList = MutableLiveData<List<PizzaApi.PizzaMenuItem>>()

@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import se.lightside.pizza.api.PizzaApi
 import javax.inject.Inject
 
-class ListRestaurantsViewModel @Inject constructor(
+class RestaurantsListViewModel @Inject constructor(
         val pizzaApi: PizzaApi
 ): ViewModel() {
 

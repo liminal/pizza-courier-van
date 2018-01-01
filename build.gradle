@@ -18,12 +18,23 @@ buildscript {
     }
 }
 
+apply from: 'gradle/resolution_strategy.gradle'
+
+
+allprojects {
+    configurations.all {
+        resolutionStrategy rootProject.ext.commonResolutionStrategy
+    }
+}
+
 allprojects {
     repositories {
         google()
         jcenter()
     }
 }
+
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir

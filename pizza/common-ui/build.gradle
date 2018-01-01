@@ -1,8 +1,6 @@
-apply plugin: 'com.android.application'
-
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
 
 android {
     compileSdkVersion vers.compileSdk
@@ -12,8 +10,11 @@ android {
         targetSdkVersion vers.targetSdk
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -33,27 +34,14 @@ android {
 }
 
 dependencies {
-    implementation supportLib('support-annotations')
-
-    implementation project(':lib-pizza-api')
-    implementation project(':pizza:common-ui')
-
-    implementation "com.jakewharton.timber:timber:4.6.0"
 
     implementation kotlinStdlib()
     implementation kotlinReflect()
 
-    implementation supportLib('appcompat-v7')
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
     addDaggerDependencies(dependencies, '2.14.1')
     addArchitectureLifecycleDependencies(dependencies, '1.0.0')
 
-    implementation 'com.hannesdorfmann:adapterdelegates3:3.0.1'
+    implementation supportLib('appcompat-v7')
+    implementation supportLib('recyclerview-v7')
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-
-apply plugin: 'kotlin-android-extensions'

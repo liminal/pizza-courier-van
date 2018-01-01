@@ -25,7 +25,7 @@ class RestaurantAdapterDelegate : AbsListItemAdapterDelegate<PizzaApi.PizzaResta
         viewHolder.text.text = item.toString()
         viewHolder.text.setOnClickListener { view ->
             view.context.startActivity(
-                    ListMenuActivity.Builder.newIntent(view.context, item.id))
+                    MenuListActivity.Builder.newIntent(view.context, item.id))
         }
     }
 

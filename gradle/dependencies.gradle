@@ -1,5 +1,15 @@
 ext.kotlin_version = '1.2.10'
 
+ext.vers = [
+        'compileSdk' : 27,
+        'minSdk' : 21,
+        'targetSdk': 27,
+
+        'support_libs' : '27.0.2'
+]
+
+ext.supportLib = { name -> "com.android.support:$name:${vers.support_libs}" }
+
 ext.addDaggerDependencies = { DependencyHandler deps, String daggerVersion ->
     deps.add('implementation', "com.google.dagger:dagger:$daggerVersion")
     deps.add('implementation', "com.google.dagger:dagger-android:$daggerVersion")

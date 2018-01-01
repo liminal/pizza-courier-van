@@ -1,0 +1,44 @@
+ext.commonResolutionStrategy = {
+
+    // Because of a maven repo weirdness there's an older version that will try to
+    // supercede this one if allowed.
+    force 'javax.annotation:jsr250-api:1.0'
+    force 'com.google.code.findbugs:jsr305:3.0.1'
+
+    force supportLib('appcompat-v7')
+    force supportLib('recyclerview-v7')
+
+
+    componentSelection { rules ->
+//        rules.all {
+//            ComponentSelection sel ->
+//                if (sel.candidate.group.startsWith('com.android.support')
+//                        && sel.candidate.version ==~ /(?i).*beta.*/) {
+//                    sel.reject("we don't use beta versions of support libraries")
+//                }
+//        }
+
+        rules.all {
+            ComponentSelection selection ->
+                if (selection.candidate.group.startsWith('com.squareup.leakcanary')
+                        && selection.candidate.version == '1.5.2') {
+                    selection.reject("broken version")
+                }
+        }
+
+        // include alpha versions in resolution with commqand line arg -PuseAlpha
+        if (!project.hasProperty('useAlpha')) {
+            rules.all {
+                ComponentSelection selection ->
+                    boolean rejected = ['alpha', 'alpha-preview'].any { qualifier ->
+                        selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+                    }
+                    if (rejected) {
+                        selection.reject('Release candidate')
+                    }
+
+            }
+        }
+    }
+
+}
