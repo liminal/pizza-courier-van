@@ -38,10 +38,10 @@ dependencies {
     implementation kotlinStdlib()
     implementation kotlinReflect()
 
-    addDaggerDependencies(dependencies, '2.14.1')
-    addArchitectureLifecycleDependencies(dependencies, '1.0.0')
+    addDaggerAndroidDependencies(dependencies)
+    addArchitectureLifecycleDependencies(dependencies)
 
-    implementation supportLib('appcompat-v7')
-    implementation supportLib('recyclerview-v7')
+    implementation libSupport('appcompat-v7')
+    implementation libSupport('recyclerview-v7')
 
 }

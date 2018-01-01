@@ -1,0 +1,88 @@
+/*
+ * Versions of dependencies
+ *
+ * (in order to use this, `apply from: "dependencies.gradle"` in the buildscript block of the project)
+ */
+ext.kotlin_version = '1.2.10'
+
+ext.vers = [
+        'compileSdk'      : 27,
+        'buildTools'      : '27.0.3',
+        'minSdk'          : 19,
+        'targetSdk'       : 27,
+
+        'support_libs'    : '27.0.2',
+        'multidex'        : '1.0.2',
+
+        'arch_comp'       : '1.0.0',
+        'constraintlayout': '1.1.0-beta4',
+        'dagger'          : '2.14.1',
+//        'glide'           : '4.4.0',
+//        'joda'            : '2.9.9',
+        'kotlin'          : kotlin_version,
+        'moshi'           : '1.5.0',
+        'play_services'   : '11.8.0',
+        'retrofit'        : '2.3.0',
+        'rxjava2'         : '2.1.7',
+        'rxbinding2'      : '2.0.0',
+        'rxandroid2'      : '2.0.1',
+        'rxkotlin2'       : '2.2.0',
+//        'slf4j'           : '1.7.25',
+        'support'         : '27.0.2',
+        'timber'          : '4.6.0',
+
+]
+
+static def createDepFn(String group, String defaultVersion) {
+    { name, version = defaultVersion -> "$group:$name:$version" }
+}
+
+// Google
+ext.libArchLifecycle = createDepFn("android.arch.lifecycle", vers.arch_comp)
+ext.libDagger2 = createDepFn("com.google.dagger", vers.dagger)
+ext.libSupport = createDepFn("com.android.support", vers.support_libs)
+ext.libPlayservice = createDepFn("com.google.android.gms", vers.play_services)
+
+// Jetbrains
+ext.kotlinLib = createDepFn("org.jetbrains.kotlin", vers.kotlin)
+ext.kotlinStdlib = { kotlinLib("kotlin-stdlib-jdk7", vers.kotlin) }
+ext.kotlinReflect = { kotlinLib("kotlin-reflect", vers.kotlin) }
+
+// Jake Wharton
+ext.libTimber = { version = vers.timber -> "com.jakewharton.timber:timber:$version" }
+ext.libRxBinding2 = createDepFn("com.jakewharton.rxbinding2", vers.rxbinding2)
+
+// Square
+ext.libSquareMoshi = createDepFn("com.squareup.moshi", vers.moshi)
+ext.libSquareOkio = createDepFn("com.squareup.okio", '1.13.0')
+ext.libSquareRetrofit2 = createDepFn("com.squareup.retrofit2", vers.retrofit)
+ext.libSquareSqlBrite3 = createDepFn("com.squareup.sqlbrite3", '3.0.0')
+
+// Other
+ext.libRxJava2 = createDepFn("io.reactivex.rxjava2", vers.rxjava2)
+ext.libSlf4j = createDepFn("org.slf4j", vers.slf4j)
+ext.libSlf4jApi = { version = vers.slf4j -> libSlf4j("slf4j-api", version) }
+
+
+ext.addDaggerJavaDependencies = { DependencyHandler deps, String daggerVersion = vers.dagger ->
+    deps.add('implementation', libDagger2("dagger", daggerVersion))
+    deps.add('api', 'javax.inject:javax.inject:1')
+    deps.add('api', 'javax.annotation:javax.annotation-api:1.3.1')
+    deps.add('kapt', libDagger2("dagger-compiler", daggerVersion))
+}
+
+ext.addDaggerAndroidDependencies = { DependencyHandler deps, String daggerVersion = vers.dagger ->
+    deps.add('implementation', libDagger2("dagger", daggerVersion))
+    deps.add('implementation', libDagger2("dagger-android", daggerVersion))
+    deps.add('implementation', libDagger2("dagger-android-support", daggerVersion))
+    deps.add('api', 'javax.inject:javax.inject:1')
+    deps.add('api', 'javax.annotation:javax.annotation-api:1.3.1')
+    deps.add('kapt', libDagger2("dagger-compiler", daggerVersion))
+    deps.add('kapt', libDagger2("dagger-android-processor", daggerVersion))
+}
+
+ext.addArchitectureLifecycleDependencies = { DependencyHandler deps, String arch_comp = vers.arch_comp ->
+    deps.add('implementation', libArchLifecycle("extensions", arch_comp))
+    deps.add('implementation', libArchLifecycle("reactivestreams", arch_comp))
+    deps.add('kapt', libArchLifecycle("compiler", arch_comp))
+}

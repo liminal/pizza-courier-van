@@ -7,17 +7,15 @@ targetCompatibility = "1.7"
 
 dependencies {
 
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    api 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
-    def retrofit = '2.3.0'
     // Retrofit2: https://github.com/square/retrofit
-    compile "com.squareup.retrofit2:retrofit:${retrofit}"
-    compile "com.squareup.retrofit2:adapter-rxjava2:${retrofit}"
-    compile "com.squareup.retrofit2:converter-scalars:${retrofit}"
-    compile "com.squareup.retrofit2:converter-moshi:${retrofit}"
+    api libSquareRetrofit2("retrofit")
+    api libSquareRetrofit2("adapter-rxjava2")
+    api libSquareRetrofit2("converter-scalars")
+    api libSquareRetrofit2("converter-moshi")
 
-    def moshi = '1.5.0'
-    compile "com.squareup.moshi:moshi-kotlin:${moshi}"
+    api libSquareMoshi("moshi-kotlin")
 
     implementation kotlinStdlib()
     implementation kotlinReflect()
