@@ -15,11 +15,10 @@ class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
     object Builder {
         private const val EXTRA_RESTAURANT_ID = "extra_restaurantId"
 
-        fun newIntent(ctx: Context, restaurantId: Long): Intent {
-            return Intent(ctx, MenuListActivity::class.java).apply {
-                putExtra(EXTRA_RESTAURANT_ID, restaurantId)
-            }
-        }
+        fun newIntent(ctx: Context, restaurantId: Long): Intent =
+                Intent(ctx, MenuListActivity::class.java).apply {
+                    putExtra(EXTRA_RESTAURANT_ID, restaurantId)
+                }
 
         internal fun injectExtras(activity: MenuListActivity) {
             activity.restaurantId = activity.intent.extras.getLong(EXTRA_RESTAURANT_ID)
