@@ -1,4 +1,4 @@
-package se.lightside.pizzacv.ui.restaurants
+package se.lightside.pizzacv.ui.restaurants.menu
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,6 @@ import kotterknife.bindView
 import pizzacv.common.ui.ViewModelPizzaCourierVanActivity
 import pizzacv.common.ui.viewmodel.observeNotNull
 import se.lightside.pizzacv.R
-import se.lightside.pizzacv.ui.CommonDelegateListAdapter
 
 class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
 
@@ -30,7 +29,7 @@ class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
 
     val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
-    val adapter = CommonDelegateListAdapter()
+    val adapter = PizzaMenuAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +46,13 @@ class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
             adapter.notifyDataSetChanged()
         })
 
+        model.restaurantInfo(restaurantId).observeNotNull(this, {
+            title = it.name
+        })
+
         model.loadMenuForRestaurant(restaurantId)
+
+        model.listenForMenuClicks(adapter.entryDelegate.menuItemClicks)
 
     }
 }

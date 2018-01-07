@@ -43,7 +43,10 @@ dependencies {
     implementation kotlinStdlib()
     implementation kotlinReflect()
 
+    implementation libRxJava2('rxandroid', vers.rxandroid2)
+
     implementation libSupport('appcompat-v7')
+    implementation libSupport('cardview-v7')
     implementation "com.android.support.constraint:constraint-layout:${vers.constraintlayout}"
 
     implementation libPlayservice('play-services-location')

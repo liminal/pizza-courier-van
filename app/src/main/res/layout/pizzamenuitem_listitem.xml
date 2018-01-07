@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/restaurant_card"
+    android:id="@+id/pizzamenuitem_card"
     app:elevation="8dp"
     android:layout_margin="4dp"
+    android:foreground="?selectableItemBackground"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
 
@@ -14,53 +15,43 @@
         android:layout_width="match_parent">
 
         <android.support.constraint.Guideline
-            android:id="@+id/restaurant_right_guide"
+            android:id="@+id/pizzamenuitem_right_guide"
             android:orientation="vertical"
             app:layout_constraintGuide_end="96dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:id="@+id/restaurant_name"
-            tools:text="Restaurant Name"
+            android:id="@+id/pizzamenuitem_name"
+            tools:text="Pizza Menu Item Name"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/restaurant_address1"
+            app:layout_constraintBottom_toTopOf="@+id/pizzamenuitem_toppings"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/restaurant_right_guide"
+            app:layout_constraintEnd_toStartOf="@id/pizzamenuitem_right_guide"
             android:textStyle="bold"
             android:layout_height="wrap_content"
             android:layout_width="0dp"/>
 
-        <TextView
-            android:id="@+id/restaurant_address1"
-            tools:text="Address1"
-            app:layout_constraintTop_toBottomOf="@id/restaurant_name"
-            app:layout_constraintBottom_toTopOf="@+id/restaurant_address2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/restaurant_right_guide"
-            android:textSize="14sp"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"/>
 
         <TextView
-            android:id="@+id/restaurant_address2"
-            tools:text="Address2"
-            app:layout_constraintTop_toBottomOf="@id/restaurant_address1"
+            android:id="@+id/pizzamenuitem_toppings"
+            tools:text="Pizza Menu Item toppings "
+            app:layout_constraintTop_toBottomOf="@id/pizzamenuitem_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/restaurant_right_guide"
+            app:layout_constraintEnd_toStartOf="@id/pizzamenuitem_right_guide"
             android:textSize="14sp"
             android:layout_height="wrap_content"
             android:layout_width="0dp"/>
 
         <TextView
-            android:id="@+id/restaurant_distance"
+            android:id="@+id/pizzamenuitem_price"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/restaurant_right_guide"
+            app:layout_constraintStart_toEndOf="@id/pizzamenuitem_right_guide"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            tools:text="123m"/>
+            tools:text="99:-"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

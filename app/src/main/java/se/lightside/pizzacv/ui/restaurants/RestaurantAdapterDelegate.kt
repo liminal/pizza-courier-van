@@ -1,5 +1,6 @@
 package se.lightside.pizzacv.ui.restaurants
 
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,22 +9,22 @@ import android.widget.TextView
 import com.hannesdorfmann.adapterdelegates3.AbsListItemAdapterDelegate
 import se.lightside.pizza.api.PizzaApi
 import se.lightside.pizzacv.R
+import se.lightside.pizzacv.ui.restaurants.menu.MenuListActivity
 
 class RestaurantAdapterDelegate : AbsListItemAdapterDelegate<PizzaApi.PizzaRestaurant, Any, RestaurantViewHolder>() {
-    override fun isForViewType(item: Any, items: MutableList<Any>, position: Int): Boolean {
-        return item is PizzaApi.PizzaRestaurant
-    }
+    override fun isForViewType(item: Any, items: MutableList<Any>, position: Int): Boolean =
+            item is PizzaApi.PizzaRestaurant
 
-    override fun onCreateViewHolder(parent: ViewGroup): RestaurantViewHolder {
-        return RestaurantViewHolder(
-                LayoutInflater.from(parent.context)
-                        .inflate(R.layout.restaurant_listitem, parent, false))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup): RestaurantViewHolder = RestaurantViewHolder(
+            LayoutInflater.from(parent.context)
+                    .inflate(R.layout.restaurant_listitem, parent, false))
 
     override fun onBindViewHolder(item: PizzaApi.PizzaRestaurant, viewHolder: RestaurantViewHolder, payloads: MutableList<Any>) {
 
-        viewHolder.text.text = item.toString()
-        viewHolder.text.setOnClickListener { view ->
+        viewHolder.restaurantName.text = item.name
+        viewHolder.restaurantAddress1.text = item.address1
+        viewHolder.restaurantAddress2.text = item.address2
+        viewHolder.restaurantCard.setOnClickListener { view ->
             view.context.startActivity(
                     MenuListActivity.Builder.newIntent(view.context, item.id))
         }
@@ -34,5 +35,9 @@ class RestaurantAdapterDelegate : AbsListItemAdapterDelegate<PizzaApi.PizzaResta
 
 class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    val text: TextView = itemView.findViewById<TextView>(R.id.text)
+    val restaurantCard: CardView = itemView.findViewById<CardView>(R.id.restaurant_card)
+    val restaurantName: TextView = itemView.findViewById<TextView>(R.id.restaurant_name)
+    val restaurantAddress1: TextView = itemView.findViewById<TextView>(R.id.restaurant_address1)
+    val restaurantAddress2: TextView = itemView.findViewById<TextView>(R.id.restaurant_address2)
+    val restaurantDistance: TextView = itemView.findViewById<TextView>(R.id.restaurant_distance)
 }

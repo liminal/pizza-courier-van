@@ -44,4 +44,6 @@ dependencies {
     implementation libSupport('appcompat-v7')
     implementation libSupport('recyclerview-v7')
 
+    implementation libRxJava2('rxjava')
+
 }

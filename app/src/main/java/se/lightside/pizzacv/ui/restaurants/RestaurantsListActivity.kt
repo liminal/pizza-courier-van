@@ -10,15 +10,16 @@ import se.lightside.pizzacv.ui.CommonDelegateListAdapter
 
 class RestaurantsListActivity : ViewModelPizzaCourierVanActivity<RestaurantsListViewModel>() {
 
-    val recyclerView: RecyclerView by bindView(R.id.recyclerView)
+    private val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
-    val adapter = CommonDelegateListAdapter()
+    private val adapter = CommonDelegateListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         model = getViewModel(RestaurantsListViewModel::class.java)
 
         setContentView(R.layout.activity_list_restaurants)
+        title = "List of pizza places"
 
         recyclerView.adapter = adapter
 

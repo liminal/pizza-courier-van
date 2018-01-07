@@ -18,8 +18,8 @@ import pizzacv.common.ui.viewmodel.ViewModelKey
 import se.lightside.pizzacv.BuildConfig
 import se.lightside.pizzacv.PizzaCourierVanApp
 import se.lightside.pizzacv.ui.MainActivity
-import se.lightside.pizzacv.ui.restaurants.MenuListActivity
-import se.lightside.pizzacv.ui.restaurants.MenuListViewModel
+import se.lightside.pizzacv.ui.restaurants.menu.MenuListActivity
+import se.lightside.pizzacv.ui.restaurants.menu.MenuListViewModel
 import se.lightside.pizzacv.ui.restaurants.RestaurantsListActivity
 import se.lightside.pizzacv.ui.restaurants.RestaurantsListViewModel
 import timber.log.Timber
