@@ -47,6 +47,7 @@ dependencies {
 
     implementation libSupport('appcompat-v7')
     implementation libSupport('cardview-v7')
+    implementation libSupport('design')
     implementation "com.android.support.constraint:constraint-layout:${vers.constraintlayout}"
 
     implementation libPlayservice('play-services-location')

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#eee"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.constraint.Guideline
+        android:id="@+id/cart_top_separator"
+        app:layout_constraintGuide_begin="48dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <View
+        android:id="@+id/shopping_cart_separator"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#f00"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+    <TextView
+        android:id="@+id/shopping_cart_count"
+        tools:text="You have 100 pizzas"
+        app:layout_constraintTop_toBottomOf="@id/shopping_cart_separator"
+        app:layout_constraintBottom_toTopOf="@+id/shopping_cart_total"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+    <TextView
+        android:id="@+id/shopping_cart_total"
+        tools:text="Your total is 1234:-"
+        app:layout_constraintTop_toBottomOf="@id/shopping_cart_count"
+        app:layout_constraintBottom_toTopOf="@id/cart_top_separator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+
+    <Button
+        android:id="@+id/shopping_cart_btn"
+        android:text="@string/cart_show_cart"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        app:layout_constraintTop_toBottomOf="@id/shopping_cart_guide"
+        app:layout_constraintBottom_toTopOf="@id/cart_top_separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/shopping_cart_list_separator"
+        app:layout_constraintTop_toBottomOf="@id/cart_top_separator"
+        android:background="#ccc"
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
+    <LinearLayout
+        android:id="@+id/order_list"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/cart_top_separator"
+        app:layout_constraintBottom_toTopOf="@+id/btn_send_order"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btn_send_order"
+        android:text="@string/cart_send_order"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintTop_toBottomOf="@id/order_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</android.support.constraint.ConstraintLayout>

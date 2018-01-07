@@ -10,6 +10,7 @@ import com.hannesdorfmann.adapterdelegates3.AbsListItemAdapterDelegate
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import io.reactivex.subjects.PublishSubject
 import se.lightside.pizzacv.R
+import se.lightside.pizzacv.comparePizzaCategory
 
 sealed class PizzaMenuEntry
 
@@ -22,7 +23,15 @@ data class PizzaMenuItemEntry(
         val toppings: List<String> = emptyList(),
         val price: Int,
         val rank: Int
-): PizzaMenuEntry()
+): PizzaMenuEntry() {
+
+    operator fun  compareTo(other: PizzaMenuItemEntry): Int {
+        return when {
+            category == other.category -> rank.compareTo(other.rank)
+            else -> comparePizzaCategory(category).compareTo(comparePizzaCategory(other.category))
+        }
+    }
+}
 
 class PizzaMenuAdapter : ListDelegationAdapter<List<PizzaMenuEntry>>() {
 
@@ -65,10 +74,8 @@ class PizzaMenuItemEntryDelegate : AbsListItemAdapterDelegate<PizzaMenuItemEntry
                             .inflate(R.layout.pizzamenuitem_listitem, parent, false))
 
     override fun onBindViewHolder(item: PizzaMenuItemEntry, viewHolder: PizzaMenuItemEntryViewHolder, payloads: MutableList<Any>) {
-        viewHolder.pizzamenuitemName.text = item.name
-        viewHolder.pizzamenuitemPrice.text = "${item.price}:-"
-        viewHolder.pizzamenuitemToppings.text = item.toppings.joinToString(separator = ", ")
 
+        viewHolder.render(item)
         viewHolder.pizzamenuitemCard.setOnClickListener {
             menuItemClicks.onNext(item)
         }
@@ -83,4 +90,15 @@ class PizzaMenuItemEntryViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
     val pizzamenuitemName: TextView = itemView.findViewById<TextView>(R.id.pizzamenuitem_name)
     val pizzamenuitemToppings: TextView = itemView.findViewById<TextView>(R.id.pizzamenuitem_toppings)
     val pizzamenuitemPrice: TextView = itemView.findViewById<TextView>(R.id.pizzamenuitem_price)
+
+    fun render(item: PizzaMenuItemEntry, count: Int? = null) {
+        pizzamenuitemName.text = item.name
+        pizzamenuitemToppings.text = item.toppings.joinToString(separator = ", ")
+
+        pizzamenuitemPrice.text = when (count) {
+            null -> "${item.price}:-"
+            else -> "$count á ${item.price}:-"
+        }
+
+    }
 }

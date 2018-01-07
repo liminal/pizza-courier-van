@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pizza Courier Van</string>
+
+    <string name="cart_show_cart">Show Cart</string>
+    <string name="cart_hide_cart">Hide Cart</string>
+    <string name="cart_send_order">Send Order</string>
 </resources>

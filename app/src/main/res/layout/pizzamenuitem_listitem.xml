@@ -35,7 +35,7 @@
 
         <TextView
             android:id="@+id/pizzamenuitem_toppings"
-            tools:text="Pizza Menu Item toppings "
+            tools:text="Topping 1, Topping 2, Topping 2"
             app:layout_constraintTop_toBottomOf="@id/pizzamenuitem_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -10,7 +10,7 @@ import io.reactivex.subjects.PublishSubject
 import pizzacv.common.ui.toLiveData
 import se.lightside.pizza.api.PizzaApi
 import se.lightside.pizzacv.comparePizzaCategory
-import timber.log.Timber
+import se.lightside.pizzacv.ui.cart.ShoppingCart
 import javax.inject.Inject
 
 data class RestaurantInfo(val restaurantId: Long,
@@ -21,6 +21,12 @@ class MenuListViewModel @Inject constructor(
 ) : ViewModel() {
 
     val menuList = MutableLiveData<List<PizzaMenuEntry>>()
+
+    val shoppingCart = MutableLiveData<ShoppingCart>()
+
+    init {
+        shoppingCart.value = ShoppingCart()
+    }
 
     fun loadMenuForRestaurant(restaurantId: Long) {
         pizzaApi.getRestaurantMenu(restaurantId)
@@ -64,12 +70,13 @@ class MenuListViewModel @Inject constructor(
         return out
     }
 
-    var total = 0
+    private fun addItemToShoppingCart(item: PizzaMenuItemEntry) {
+        shoppingCart.value = shoppingCart.value?.withItem(item) ?: ShoppingCart(items = listOf(item))
+    }
 
     fun listenForMenuClicks(menuItemClicks: PublishSubject<PizzaMenuItemEntry>) {
         menuItemClicks.subscribe({
-            total += it.price
-            Timber.v("total: %d, clicked: %s", total, it)
+            addItemToShoppingCart(it)
         })
     }
 }

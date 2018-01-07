@@ -18,7 +18,7 @@ class RestaurantsListActivity : ViewModelPizzaCourierVanActivity<RestaurantsList
         super.onCreate(savedInstanceState)
         model = getViewModel(RestaurantsListViewModel::class.java)
 
-        setContentView(R.layout.activity_list_restaurants)
+        setContentView(R.layout.restaurant_list_activity)
         title = "List of pizza places"
 
         recyclerView.adapter = adapter
