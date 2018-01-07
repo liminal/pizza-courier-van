@@ -2,6 +2,7 @@ package se.lightside.pizza.api
 
 import io.reactivex.Single
 import retrofit2.http.*
+import java.io.Serializable
 
 // FORMAT: 1A
 //
@@ -232,11 +233,13 @@ interface PizzaApi {
 
     data class PizzaOrderRequest(
             val restaurantId: Long,
-            val cart: List<OrderItem>)
+            val cart: List<OrderItem>
+    ): Serializable
 
     data class OrderItem(
             val menuItemId: Long,
-            val quantity: Int)
+            val quantity: Int
+    ): Serializable
 
     data class PizzaOrder(
             val orderId: Long,
