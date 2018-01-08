@@ -1,17 +1,20 @@
 package se.lightside.pizzacv.ui.restaurants.menu
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.widget.RecyclerView
-import android.view.View
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotterknife.bindView
 import pizzacv.common.ui.ViewModelPizzaCourierVanActivity
 import pizzacv.common.ui.viewmodel.observeNotNull
 import se.lightside.pizzacv.R
-import se.lightside.pizzacv.ui.bottomSheetBehavior
 import se.lightside.pizzacv.ui.cart.ShoppingCartWidget
+import se.lightside.pizzacv.ui.order.OrderActivity
+import javax.inject.Inject
 
 class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
 
@@ -30,6 +33,7 @@ class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
     }
 
     var restaurantId: Long = -1L
+
 
     private val recyclerView: RecyclerView by bindView(R.id.recyclerView)
     private val shoppingCart: ShoppingCartWidget by bindView(R.id.shopping_cart)
@@ -65,5 +69,13 @@ class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
             shoppingCart.shoppingCart = it
         }
 
+        shoppingCart.sendOrderButton.setOnClickListener {
+            startActivity(OrderActivity.Builder.newIntent(this, 1234412L))
+        }
+
+
+
+
     }
+
 }

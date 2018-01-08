@@ -7,31 +7,90 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.hannesdorfmann.adapterdelegates3.AbsListItemAdapterDelegate
+import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import se.lightside.pizza.api.PizzaApi
 import se.lightside.pizzacv.R
+import se.lightside.pizzacv.ui.HeaderViewHolder
 import se.lightside.pizzacv.ui.restaurants.menu.MenuListActivity
 
-class RestaurantAdapterDelegate : AbsListItemAdapterDelegate<PizzaApi.PizzaRestaurant, Any, RestaurantViewHolder>() {
-    override fun isForViewType(item: Any, items: MutableList<Any>, position: Int): Boolean =
-            item is PizzaApi.PizzaRestaurant
+sealed class RestaurantListEntry
 
-    override fun onCreateViewHolder(parent: ViewGroup): RestaurantViewHolder = RestaurantViewHolder(
-            LayoutInflater.from(parent.context)
-                    .inflate(R.layout.restaurant_listitem, parent, false))
+data class RestaurantHeaderEntry(val title: String): RestaurantListEntry()
 
-    override fun onBindViewHolder(item: PizzaApi.PizzaRestaurant, viewHolder: RestaurantViewHolder, payloads: MutableList<Any>) {
+data class RestaurantEntry(
+        val restaurant: PizzaApi.PizzaRestaurant,
+        val distanceInMeters: Int? = null,
+        val isClosest: Boolean = false
+) : RestaurantListEntry()
 
-        viewHolder.restaurantName.text = item.name
-        viewHolder.restaurantAddress1.text = item.address1
-        viewHolder.restaurantAddress2.text = item.address2
-        viewHolder.restaurantCard.setOnClickListener { view ->
-            view.context.startActivity(
-                    MenuListActivity.Builder.newIntent(view.context, item.id))
-        }
+class RestaurantListAdapter : ListDelegationAdapter<List<RestaurantListEntry>>() {
+
+    init {
+        delegatesManager.addDelegate(RestaurantHeaderAdapterDelegate())
+                .addDelegate(ClosestRestaurantAdapterDelegate())
+                .addDelegate(NormalRestaurantAdapterDelegate())
     }
 
 }
 
+class RestaurantHeaderAdapterDelegate : AbsListItemAdapterDelegate<RestaurantHeaderEntry, RestaurantListEntry, HeaderViewHolder>() {
+    override fun isForViewType(item: RestaurantListEntry, items: MutableList<RestaurantListEntry>, position: Int): Boolean =
+            item is RestaurantHeaderEntry
+
+    override fun onCreateViewHolder(parent: ViewGroup): HeaderViewHolder =
+            HeaderViewHolder(
+                    LayoutInflater.from(parent.context)
+                            .inflate(R.layout.header_listitem, parent, false))
+
+    override fun onBindViewHolder(item: RestaurantHeaderEntry, viewHolder: HeaderViewHolder, payloads: MutableList<Any>) {
+        viewHolder.title.text = item.title
+    }
+}
+
+class ClosestRestaurantAdapterDelegate : AbsRestaurantAdapterDelegate() {
+    override fun isForViewType(item: RestaurantListEntry, items: MutableList<RestaurantListEntry>, position: Int): Boolean =
+            item is RestaurantEntry && item.isClosest
+
+    override fun onCreateViewHolder(parent: ViewGroup): RestaurantViewHolder =
+            RestaurantViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.restaurant_closest_listitem, parent, false))
+}
+
+
+class NormalRestaurantAdapterDelegate : AbsRestaurantAdapterDelegate() {
+    override fun isForViewType(item: RestaurantListEntry, items: MutableList<RestaurantListEntry>, position: Int): Boolean =
+            item is RestaurantEntry && !item.isClosest
+
+    override fun onCreateViewHolder(parent: ViewGroup): RestaurantViewHolder =
+            RestaurantViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.restaurant_listitem, parent, false))
+}
+
+
+
+abstract class AbsRestaurantAdapterDelegate : AbsListItemAdapterDelegate<RestaurantEntry, RestaurantListEntry, RestaurantViewHolder>() {
+
+    override fun onBindViewHolder(item: RestaurantEntry, viewHolder: RestaurantViewHolder, payloads: MutableList<Any>) {
+
+        val restaurant = item.restaurant
+
+        viewHolder.restaurantName.text = restaurant.name
+        viewHolder.restaurantAddress1.text = restaurant.address1
+        viewHolder.restaurantAddress2.text = restaurant.address2
+        viewHolder.restaurantDistance.text = formatDistanceStr(item.distanceInMeters)
+        viewHolder.restaurantCard.setOnClickListener { view ->
+            view.context.startActivity(
+                    MenuListActivity.Builder.newIntent(view.context, restaurant.id))
+        }
+    }
+
+    private fun formatDistanceStr(distanceInMeters: Int?): String =
+            when {
+                distanceInMeters ?: 0 < 1 -> ""
+                else -> "${distanceInMeters}m"
+            }
+
+}
 
 class RestaurantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

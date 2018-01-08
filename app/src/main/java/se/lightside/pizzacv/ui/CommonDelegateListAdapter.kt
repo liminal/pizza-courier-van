@@ -9,13 +9,11 @@ import com.hannesdorfmann.adapterdelegates3.AbsListItemAdapterDelegate
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import se.lightside.pizzacv.R
 import se.lightside.pizzacv.ui.restaurants.menu.MenuAdapterDelegate
-import se.lightside.pizzacv.ui.restaurants.RestaurantAdapterDelegate
 
 class CommonDelegateListAdapter : ListDelegationAdapter<List<Any>>() {
 
     init {
-        delegatesManager.addDelegate(RestaurantAdapterDelegate())
-                .addDelegate(MenuAdapterDelegate())
+        delegatesManager.addDelegate(MenuAdapterDelegate())
 
         delegatesManager.fallbackDelegate = PlaceholderFallbackDelegate
 

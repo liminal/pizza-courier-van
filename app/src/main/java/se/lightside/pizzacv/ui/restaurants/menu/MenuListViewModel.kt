@@ -3,6 +3,7 @@ package se.lightside.pizzacv.ui.restaurants.menu
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
@@ -45,6 +46,14 @@ class MenuListViewModel @Inject constructor(
                             name = it.name)
                     }.toFlowable()
                     .toLiveData()
+
+    fun sendOrder(restaurantId: Long, orderItems: List<PizzaApi.OrderItem>): Single<PizzaApi.PizzaOrder> =
+            pizzaApi.createOrder(PizzaApi.PizzaOrderRequest(
+                    restaurantId = restaurantId,
+                    cart = orderItems))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+
 
     private fun mapToEntries(apiMenuItems: List<PizzaApi.PizzaMenuItem>): List<PizzaMenuEntry> {
         val entries = apiMenuItems.map {

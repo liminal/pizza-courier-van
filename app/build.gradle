@@ -43,6 +43,7 @@ dependencies {
     implementation kotlinStdlib()
     implementation kotlinReflect()
 
+    implementation libRxJava2('rxkotlin', vers.rxkotlin2)
     implementation libRxJava2('rxandroid', vers.rxandroid2)
 
     implementation libSupport('appcompat-v7')
@@ -50,12 +51,22 @@ dependencies {
     implementation libSupport('design')
     implementation "com.android.support.constraint:constraint-layout:${vers.constraintlayout}"
 
+    // Playservices Location dependency for FusedLocationProvider
     implementation libPlayservice('play-services-location')
 
+    // Add dependencies for Dagger2 dependency injection
     addDaggerAndroidDependencies(dependencies)
+
+    // Add dependencies for architecture components lifecycle
     addArchitectureLifecycleDependencies(dependencies)
 
+    // Framework for nicer implementation of RecyclerView.Adapters
     implementation 'com.hannesdorfmann:adapterdelegates3:3.0.1'
-}
 
-apply plugin: 'kotlin-android-extensions'
+    // Android backport of JSR-310 aka java.time.*
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+
+    // RxJava2 helper for runtime requesting android permissions
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+
+}

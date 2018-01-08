@@ -11,6 +11,7 @@ import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import io.reactivex.subjects.PublishSubject
 import se.lightside.pizzacv.R
 import se.lightside.pizzacv.comparePizzaCategory
+import se.lightside.pizzacv.ui.HeaderViewHolder
 
 sealed class PizzaMenuEntry
 
@@ -43,23 +44,20 @@ class PizzaMenuAdapter : ListDelegationAdapter<List<PizzaMenuEntry>>() {
     }
 }
 
-class PizzaMenuSectionHeaderAdapterDelegate : AbsListItemAdapterDelegate<PizzaMenuSectionHeader, PizzaMenuEntry, PizzaMenuSectionHeaderViewHolder>() {
+class PizzaMenuSectionHeaderAdapterDelegate : AbsListItemAdapterDelegate<PizzaMenuSectionHeader, PizzaMenuEntry, HeaderViewHolder>() {
     override fun isForViewType(item: PizzaMenuEntry, items: MutableList<PizzaMenuEntry>, position: Int): Boolean =
             item is PizzaMenuSectionHeader
 
-    override fun onCreateViewHolder(parent: ViewGroup): PizzaMenuSectionHeaderViewHolder =
-            PizzaMenuSectionHeaderViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup): HeaderViewHolder =
+            HeaderViewHolder(
                     LayoutInflater.from(parent.context)
-                            .inflate(R.layout.pizzamenuitem_header, parent, false))
+                            .inflate(R.layout.header_listitem, parent, false))
 
-    override fun onBindViewHolder(item: PizzaMenuSectionHeader, viewHolder: PizzaMenuSectionHeaderViewHolder, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(item: PizzaMenuSectionHeader, viewHolder: HeaderViewHolder, payloads: MutableList<Any>) {
         viewHolder.title.text = item.title
     }
 }
 
-class PizzaMenuSectionHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val title: TextView = itemView.findViewById<TextView>(R.id.pizzamenusection_title)
-}
 
 class PizzaMenuItemEntryDelegate : AbsListItemAdapterDelegate<PizzaMenuItemEntry, PizzaMenuEntry, PizzaMenuItemEntryViewHolder>() {
 

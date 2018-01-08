@@ -1,8 +1,12 @@
 package se.lightside.pizzacv.di
 
+import android.app.Activity
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.Binds
 import dagger.Component
 import dagger.Module
@@ -17,11 +21,12 @@ import pizzacv.common.ui.viewmodel.ViewModelFactory
 import pizzacv.common.ui.viewmodel.ViewModelKey
 import se.lightside.pizzacv.BuildConfig
 import se.lightside.pizzacv.PizzaCourierVanApp
-import se.lightside.pizzacv.ui.MainActivity
-import se.lightside.pizzacv.ui.restaurants.menu.MenuListActivity
-import se.lightside.pizzacv.ui.restaurants.menu.MenuListViewModel
+import se.lightside.pizzacv.ui.order.OrderActivity
+import se.lightside.pizzacv.ui.order.OrderViewModel
 import se.lightside.pizzacv.ui.restaurants.RestaurantsListActivity
 import se.lightside.pizzacv.ui.restaurants.RestaurantsListViewModel
+import se.lightside.pizzacv.ui.restaurants.menu.MenuListActivity
+import se.lightside.pizzacv.ui.restaurants.menu.MenuListViewModel
 import timber.log.Timber
 import javax.inject.Singleton
 
@@ -73,14 +78,40 @@ object PizzaCourierVanAppModule {
 @Module
 abstract class PizzaCvActivitiesModule {
 
-    @ContributesAndroidInjector
-    abstract fun provideMainActivityInjector(): MainActivity
-
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [ RestaurantListActivityModule::class ])
     abstract fun provideListRestaurantsActivityInjector(): RestaurantsListActivity
 
     @ContributesAndroidInjector
     abstract fun provideListMenuActivityInjector(): MenuListActivity
+
+    @ContributesAndroidInjector
+    abstract fun provideOrderActivityInjector(): OrderActivity
+
+}
+
+@Module(includes = [FusedLocationModule::class, RxPermissionsModule::class])
+abstract class RestaurantListActivityModule {
+
+    @Binds
+    abstract fun bindActivity(impl: RestaurantsListActivity): Activity
+}
+
+@Module
+object FusedLocationModule {
+
+    @Provides
+    @JvmStatic
+    fun provideFusedLocationProviderClient(activity: Activity): FusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(activity)
+
+}
+
+@Module
+object RxPermissionsModule {
+
+    @Provides
+    @JvmStatic
+    fun provideRxPermissions(activity: Activity): RxPermissions = RxPermissions(activity)
 
 }
 
@@ -99,5 +130,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MenuListViewModel::class)
     abstract fun bindListMenuViewModel(model: MenuListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(OrderViewModel::class)
+    abstract fun bindOrderViewModel(model: OrderViewModel): ViewModel
 
 }

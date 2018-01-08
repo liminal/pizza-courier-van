@@ -291,11 +291,13 @@ interface PizzaApi {
     fun getOrderDetails(@Path("id") orderId: Long): Single<PizzaOrderDetails>
 
     data class PizzaOrderDetails(
-            val restaurantId: Long,
+//            val restaurantId: Long,
+            val restuarantId: Long,
             val orderId: Long,
             val totalPrice: Int,
             val orderedAt: String? = null,
-            val estimatedDelivery: String? = null,
+//            val estimatedDelivery: String? = null,
+            val esitmatedDelivery: String? = null,
             val status: String,
             val cart: List<OrderItem>)
 
