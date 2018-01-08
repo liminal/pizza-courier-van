@@ -47,6 +47,13 @@ class MenuListViewModel @Inject constructor(
                     }.toFlowable()
                     .toLiveData()
 
+    fun sendOrder(restaurantId: Long): Single<PizzaApi.PizzaOrder> =
+            sendOrder(restaurantId, shoppingCart.value?.itemMap?.asIterable()?.map {
+                PizzaApi.OrderItem(
+                        menuItemId = it.key.id,
+                        quantity = it.value)
+            } ?: emptyList())
+
     fun sendOrder(restaurantId: Long, orderItems: List<PizzaApi.OrderItem>): Single<PizzaApi.PizzaOrder> =
             pizzaApi.createOrder(PizzaApi.PizzaOrderRequest(
                     restaurantId = restaurantId,
