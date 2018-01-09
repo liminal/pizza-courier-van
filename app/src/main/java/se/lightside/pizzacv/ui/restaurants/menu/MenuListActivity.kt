@@ -39,6 +39,7 @@ class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         Builder.injectExtras(this)
         model = getViewModel(MenuListViewModel::class.java)
 

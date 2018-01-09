@@ -22,8 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.restaurants.menu.MenuListActivity"/>
-        <activity android:name=".ui.order.OrderActivity">
+        <activity
+            android:name=".ui.restaurants.menu.MenuListActivity"
+            android:parentActivityName=".ui.restaurants.RestaurantsListActivity"
+            />
+        <activity android:name=".ui.order.OrderActivity"
+            android:parentActivityName=".ui.restaurants.RestaurantsListActivity">
         </activity>
     </application>
 

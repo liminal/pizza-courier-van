@@ -31,8 +31,9 @@ class OrderActivity : ViewModelPizzaCourierVanActivity<OrderViewModel>() {
     private val arrivalTimer : TextView by bindView(R.id.arrival_time)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Builder.inject(this)
         super.onCreate(savedInstanceState)
+        Builder.inject(this)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         model = getViewModel(OrderViewModel::class.java)
 
         setContentView(R.layout.order_activity)
