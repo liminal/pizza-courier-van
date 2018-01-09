@@ -26,6 +26,7 @@ Tap an entry.
 
 Magically a shopping cart will sneak onto your screen from below.
 Whatever you tapped will be added to it
+
 Tap more things! Tap All The Things! TAP ALL THE PIZZA SALADS (they are free so go wild!)
 
 (Future feature: Being able to remove things from the cart!)
@@ -43,3 +44,7 @@ Close eyes and pretend that the progress indicator is something pretty and impre
 
 Be amazed at how the order should have been delivered 24.000 hours ago.
 I bet it must have gone cold while in the backseat of that delorean.
+
+### How does it do the things?
+
+see [CONTENTS.md](./CONTENTS.md)
