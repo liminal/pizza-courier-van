@@ -28,14 +28,14 @@ class RestaurantsListActivity : ViewModelPizzaCourierVanActivity<RestaurantsList
         model = getViewModel(RestaurantsListViewModel::class.java)
 
         setContentView(R.layout.restaurant_list_activity)
-        title = "List of pizza places"
+        setTitle(R.string.restaurant_list_title)
 
         recyclerView.adapter = adapter
 
-        model.restaurantList.observeNotNull(this, {
+        model.restaurantList.observeNotNull(this) {
             adapter.items = it
             adapter.notifyDataSetChanged()
-        })
+        }
 
         rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe({

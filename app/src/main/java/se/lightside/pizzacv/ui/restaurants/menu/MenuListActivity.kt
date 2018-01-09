@@ -73,8 +73,8 @@ class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
             model.sendOrder(restaurantId)
                     .doOnSubscribe({
                         pd = ProgressDialog.show(this,
-                                "Placing order",
-                                "(pretend this is something much prettier)",
+                                getString(R.string.order_progress_title),
+                                getString(R.string.order_progress_message),
                                 true)
                     })
                     .doAfterTerminate { pd?.hide() }
@@ -82,7 +82,7 @@ class MenuListActivity : ViewModelPizzaCourierVanActivity<MenuListViewModel>() {
                         startActivity(OrderActivity.Builder.newIntent(this, orderDetails.orderId))
 
                     },
-                            { Snackbar.make(recyclerView, "Something went wrong with your order. Dang.", Snackbar.LENGTH_INDEFINITE).show() })
+                            { Snackbar.make(recyclerView, R.string.order_failure_message, Snackbar.LENGTH_INDEFINITE).show() })
         }
 
 

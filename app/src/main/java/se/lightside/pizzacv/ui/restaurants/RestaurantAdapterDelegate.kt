@@ -1,5 +1,6 @@
 package se.lightside.pizzacv.ui.restaurants
 
+import android.support.annotation.StringRes
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -15,7 +16,7 @@ import se.lightside.pizzacv.ui.restaurants.menu.MenuListActivity
 
 sealed class RestaurantListEntry
 
-data class RestaurantHeaderEntry(val title: String): RestaurantListEntry()
+data class RestaurantHeaderEntry(@StringRes val titleRes: Int): RestaurantListEntry()
 
 data class RestaurantEntry(
         val restaurant: PizzaApi.PizzaRestaurant,
@@ -43,7 +44,7 @@ class RestaurantHeaderAdapterDelegate : AbsListItemAdapterDelegate<RestaurantHea
                             .inflate(R.layout.header_listitem, parent, false))
 
     override fun onBindViewHolder(item: RestaurantHeaderEntry, viewHolder: HeaderViewHolder, payloads: MutableList<Any>) {
-        viewHolder.title.text = item.title
+        viewHolder.title.setText(item.titleRes)
     }
 }
 

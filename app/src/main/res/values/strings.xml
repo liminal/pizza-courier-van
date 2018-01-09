@@ -1,7 +1,25 @@
 <resources>
     <string name="app_name">Pizza Courier Van</string>
 
+    <string name="restaurant_list_title">List of pizza places</string>
+    <string name="restaurant_list_empty">No restaurants found</string>
+
+    <string name="restaurant_list_heading_nopos">Restaurants</string>
+    <string name="restaurant_list_heading_closest">Closest restaurant</string>
+    <string name="restaurant_list_heading_other">Other restaurants</string>
+
     <string name="cart_show_cart">Show Cart</string>
     <string name="cart_hide_cart">Hide Cart</string>
     <string name="cart_send_order">Send Order</string>
+    <string name="cart_total_count">Current itemCount: %1$d</string>
+    <string name="cart_total_price">Current total: %1$d :-</string>
+
+
+
+    <string name="order_progress_title">Placing order</string>
+    <string name="order_progress_message">(pretend this is something much prettier)</string>
+    <string name="order_failure_message">Something went wrong with your order. Dang.</string>
+
+    <string name="order_delivery_heading">Your order is on its way!\n Estimated time until delivery:</string>
+    <string name="order_arrival_time_placeholder">--:--:--</string>
 </resources>

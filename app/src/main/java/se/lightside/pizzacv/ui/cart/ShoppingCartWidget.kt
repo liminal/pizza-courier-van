@@ -63,8 +63,8 @@ class ShoppingCartWidget @JvmOverloads constructor(
                 else -> BottomSheetBehavior.STATE_COLLAPSED
             }
 
-            itemCount.text = "Current itemCount: ${it.totalCount}"
-            itemTotal.text = "Current total: ${it.totalPrice}:-"
+            itemCount.text = context.getString(R.string.cart_total_count, it.totalCount)
+            itemTotal.text = context.getString(R.string.cart_total_price, it.totalPrice)
         }
 
     }

@@ -8,6 +8,7 @@ import io.reactivex.rxkotlin.Observables
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import se.lightside.pizza.api.PizzaApi
+import se.lightside.pizzacv.R
 import se.lightside.pizzacv.geo.GeoPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -46,7 +47,7 @@ class RestaurantsListViewModel @Inject constructor(
 
     private fun orderByDistanceAndGroup(pos: UserPosition, restaurants: List<PizzaApi.PizzaRestaurant>): List<RestaurantListEntry> {
         if (restaurants.isEmpty()) {
-            return listOf(RestaurantHeaderEntry("No restaurants found"))
+            return listOf(RestaurantHeaderEntry(R.string.restaurant_list_empty))
         }
         val restaurantList = restaurants.map {
             RestaurantEntry(
@@ -54,12 +55,12 @@ class RestaurantsListViewModel @Inject constructor(
                     distanceInMeters = pos.geoPoint.distanceTo(it.geoPoint()))
         }
         if (pos.geoPoint.isZeroPoint()) {
-            return listOf(RestaurantHeaderEntry("Restaurants")) + restaurantList
+            return listOf(RestaurantHeaderEntry(R.string.restaurant_list_heading_nopos)) + restaurantList
         } else {
             val sortedList = restaurantList.sortedBy { it.distanceInMeters }
-            return listOf(RestaurantHeaderEntry("Closest restaurant")) +
+            return listOf(RestaurantHeaderEntry(R.string.restaurant_list_heading_closest)) +
                     sortedList.first().copy(isClosest = true) +
-                    RestaurantHeaderEntry("Other restaurants") +
+                    RestaurantHeaderEntry(R.string.restaurant_list_heading_other) +
                     sortedList.drop(1)
         }
     }
