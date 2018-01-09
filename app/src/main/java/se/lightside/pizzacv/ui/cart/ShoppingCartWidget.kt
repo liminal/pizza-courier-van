@@ -4,15 +4,13 @@ import android.content.Context
 import android.support.design.widget.BottomSheetBehavior
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import kotterknife.bindView
 import se.lightside.pizzacv.R
-import se.lightside.pizzacv.comparePizzaCategory
-import se.lightside.pizzacv.ui.bottomSheetBehavior
+import pizzacv.common.ui.bottomSheetBehavior
 import se.lightside.pizzacv.ui.restaurants.menu.PizzaMenuItemEntry
 import se.lightside.pizzacv.ui.restaurants.menu.PizzaMenuItemEntryViewHolder
 

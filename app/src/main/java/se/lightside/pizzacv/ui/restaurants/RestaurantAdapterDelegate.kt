@@ -10,7 +10,7 @@ import com.hannesdorfmann.adapterdelegates3.AbsListItemAdapterDelegate
 import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import se.lightside.pizza.api.PizzaApi
 import se.lightside.pizzacv.R
-import se.lightside.pizzacv.ui.HeaderViewHolder
+import se.lightside.pizzacv.ui.common.HeaderViewHolder
 import se.lightside.pizzacv.ui.restaurants.menu.MenuListActivity
 
 sealed class RestaurantListEntry

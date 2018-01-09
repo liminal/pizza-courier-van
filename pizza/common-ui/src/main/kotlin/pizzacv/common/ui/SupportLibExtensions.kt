@@ -1,4 +1,4 @@
-package se.lightside.pizzacv.ui
+package pizzacv.common.ui
 
 import android.support.design.widget.BottomSheetBehavior
 import android.view.View

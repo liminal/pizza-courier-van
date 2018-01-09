@@ -41,8 +41,14 @@ dependencies {
     addDaggerAndroidDependencies(dependencies)
     addArchitectureLifecycleDependencies(dependencies)
 
-    implementation libSupport('appcompat-v7')
-    implementation libSupport('recyclerview-v7')
+    api libSupport('appcompat-v7')
+    api libSupport('cardview-v7')
+    api libSupport('design')
+    api libSupport('recyclerview-v7')
+    api "com.android.support.constraint:constraint-layout:${vers.constraintlayout}"
+
+    // Framework for nicer implementation of RecyclerView.Adapters
+    implementation 'com.hannesdorfmann:adapterdelegates3:3.0.1'
 
     implementation libRxJava2('rxjava')
 

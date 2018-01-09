@@ -11,7 +11,7 @@ import com.hannesdorfmann.adapterdelegates3.ListDelegationAdapter
 import io.reactivex.subjects.PublishSubject
 import se.lightside.pizzacv.R
 import se.lightside.pizzacv.comparePizzaCategory
-import se.lightside.pizzacv.ui.HeaderViewHolder
+import se.lightside.pizzacv.ui.common.HeaderViewHolder
 
 sealed class PizzaMenuEntry
 
