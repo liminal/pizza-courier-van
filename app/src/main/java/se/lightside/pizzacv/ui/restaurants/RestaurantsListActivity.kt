@@ -16,7 +16,6 @@ import javax.inject.Inject
 class RestaurantsListActivity : ViewModelPizzaCourierVanActivity<RestaurantsListViewModel>() {
 
     @Inject lateinit var locationClient : FusedLocationProviderClient
-    @Inject lateinit var rxPermissions: RxPermissions
 
     private val recyclerView: RecyclerView by bindView(R.id.recyclerView)
 
@@ -37,7 +36,7 @@ class RestaurantsListActivity : ViewModelPizzaCourierVanActivity<RestaurantsList
             adapter.notifyDataSetChanged()
         }
 
-        rxPermissions.request(Manifest.permission.ACCESS_FINE_LOCATION)
+        RxPermissions(this).request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe({
                     permissionGranted -> if (permissionGranted) { updateModelWithLastLocation() }
                 })

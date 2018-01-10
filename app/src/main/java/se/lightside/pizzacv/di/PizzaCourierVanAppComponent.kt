@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.tbruyelle.rxpermissions2.RxPermissions
 import dagger.Binds
 import dagger.Component
 import dagger.Module
@@ -89,7 +88,7 @@ abstract class PizzaCvActivitiesModule {
 
 }
 
-@Module(includes = [FusedLocationModule::class, RxPermissionsModule::class])
+@Module(includes = [FusedLocationModule::class])
 abstract class RestaurantListActivityModule {
 
     @Binds
@@ -106,14 +105,6 @@ object FusedLocationModule {
 
 }
 
-@Module
-object RxPermissionsModule {
-
-    @Provides
-    @JvmStatic
-    fun provideRxPermissions(activity: Activity): RxPermissions = RxPermissions(activity)
-
-}
 
 @Module
 abstract class ViewModelModule {
